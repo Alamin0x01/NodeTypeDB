@@ -26,8 +26,13 @@ const getSingleUserDB = async (id: string) => {
   const result = UserModel.findOne({ userId: id });
   return result;
 };
+const updateUserDB = async (id: string, data: UserData) => {
+  const result = UserModel.updateOne({ userId: id }, { $set: data });
+  return result;
+};
 export const userServices = {
   createUserInDB,
   getAllUserDB,
   getSingleUserDB,
+  updateUserDB,
 };
