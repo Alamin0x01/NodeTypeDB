@@ -1,17 +1,17 @@
-import cors from 'cors';
 import express, { Application, Request, Response } from 'express';
-const app: Application = express();
-import { userRoutes } from './app/modules/user/user.route';
+import cors from 'cors';
+import { userRoutes } from './modules/user/user.route';
 
-// parsers
+const app: Application = express();
 app.use(express.json());
 app.use(cors());
 
-// routes
 app.use('/api/users', userRoutes);
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('NodeTypeDB app is running');
+  res.status(200).json({
+    message: 'NodeTypeDB API is running!',
+  });
 });
 
 export default app;

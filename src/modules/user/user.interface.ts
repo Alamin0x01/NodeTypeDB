@@ -1,10 +1,4 @@
-export type userData = {
-  productName: string;
-  price: number;
-  quantity: number;
-};
-
-export interface UserInterfaceIUser {
+export type UserData = {
   userId: number;
   username: string;
   password: string;
@@ -15,11 +9,10 @@ export interface UserInterfaceIUser {
   age: number;
   email: string;
   isActive: boolean;
-  hobbies: string[];
+  hobbies: [string, string];
   address: {
     street: string;
     city: string;
     country: string;
   };
-  orders: userData[];
-}
+};
