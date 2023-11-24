@@ -22,7 +22,12 @@ const getAllUserDB = async () => {
   ]);
   return result;
 };
+const getSingleUserDB = async (id: string) => {
+  const result = UserModel.findOne({ userId: id });
+  return result;
+};
 export const userServices = {
   createUserInDB,
   getAllUserDB,
+  getSingleUserDB,
 };
