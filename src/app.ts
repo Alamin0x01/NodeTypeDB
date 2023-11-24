@@ -1,15 +1,17 @@
 import cors from 'cors';
 import express, { Application, Request, Response } from 'express';
 const app: Application = express();
+import { userRoutes } from './app/modules/user/user.route';
 
 // parsers
 app.use(express.json());
 app.use(cors());
 
-app.get('/', (req: Request, res: Response) => {
-  const a = 1;
+// routes
+app.use('/api/users', userRoutes);
 
-  res.send(a);
+app.get('/', (req: Request, res: Response) => {
+  res.send('NodeTypeDB app is running');
 });
 
 export default app;
