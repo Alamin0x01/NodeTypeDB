@@ -1,5 +1,4 @@
 import { Model } from 'mongoose';
-import { userOrders } from '../order/order.interface';
 
 export type userData = {
   userId: number;
@@ -18,10 +17,16 @@ export type userData = {
     city: string;
     country: string;
   };
-  orders?: userOrders[];
+
+  orders?: {
+    productName: string;
+    price: number;
+    quantity: number;
+  }[];
 };
 
 export type UserMethods = {
+  // eslint-disable-next-line no-unused-vars
   isUserExits(id: string): Promise<userData | null>;
 };
 
