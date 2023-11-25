@@ -1,7 +1,10 @@
 import mongoose, { Schema } from 'mongoose';
-import { UserData } from './user.interface';
+import { userData, UserInterfaceModel, UserMethods } from './user.interface';
+import { orderSchema } from '../order/order.model';
+import bcrypt from 'bcrypt';
+import config from '../../config';
 
-const userSchema = new Schema<UserData>({
+const userSchema = new Schema<userData, UserInterfaceModel, UserMethods>({
   userId: {
     type: Number,
     required: [true, 'User id number is required'],
@@ -48,6 +51,32 @@ const userSchema = new Schema<UserData>({
       required: [true, 'Country is required'],
     },
   },
+  orders: {
+    type: [orderSchema],
+  },
 });
 
-export const UserModel = mongoose.model<UserData>('User', userSchema);
+userSchema.pre('save', async function (next) {
+  // eslint-disable-next-line @typescript-eslint/no-this-alias
+  const user = this;
+  user.password = await bcrypt.hash(
+    user.password,
+    Number(config.bcrypt_salt_rounds),
+  );
+  next();
+});
+
+userSchema.post('save', function (doc, next) {
+  doc.password = '';
+  next();
+});
+
+userSchema.methods.isUserExits = async function (id: string) {
+  const existingUser = await UserModel.findOne({ userId: id });
+
+  return existingUser;
+};
+export const UserModel = mongoose.model<userData, UserInterfaceModel>(
+  'User',
+  userSchema,
+);

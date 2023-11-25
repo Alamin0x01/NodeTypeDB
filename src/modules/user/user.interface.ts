@@ -1,4 +1,7 @@
-export type UserData = {
+import { Model } from 'mongoose';
+import { userOrders } from '../order/order.interface';
+
+export type userData = {
   userId: number;
   username: string;
   password: string;
@@ -9,10 +12,21 @@ export type UserData = {
   age: number;
   email: string;
   isActive: boolean;
-  hobbies: [string, string];
+  hobbies: string[];
   address: {
     street: string;
     city: string;
     country: string;
   };
+  orders?: userOrders[];
 };
+
+export type UserMethods = {
+  isUserExits(id: string): Promise<userData | null>;
+};
+
+export type UserInterfaceModel = Model<
+  userData,
+  Record<string, never>,
+  UserMethods
+>;
