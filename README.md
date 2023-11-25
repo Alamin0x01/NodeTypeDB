@@ -2,7 +2,7 @@
 
 A Node.js Express application with TypeScript as the programming language, integrating MongoDB with Mongoose for user data and order management.
 
-### Live server link : https://database-api-node-type-qeiikweqc-alamin0x01.vercel.app/
+### Live server link : https://database-api-node-type.vercel.app/
 
 ## Prerequisites
 
